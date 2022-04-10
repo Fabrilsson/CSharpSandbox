@@ -46,4 +46,14 @@ public class GroceriesController : ControllerBase
 
         return new OkResult();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int Id)
+    {
+        await _repository.Delete(Id);
+
+        await _context.SaveChangesAsync();
+
+        return new OkResult();
+    }
 }

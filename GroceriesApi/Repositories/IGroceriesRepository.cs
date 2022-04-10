@@ -9,4 +9,6 @@ public interface IGroceriesRepository
     void AddItem(Item item);
 
     void UpdateItem(Item item);
+
+     Task Delete(int Id);
 }

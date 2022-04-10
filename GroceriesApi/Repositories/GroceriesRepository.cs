@@ -28,4 +28,12 @@ public class GroceriesRepository : IGroceriesRepository
     {
         _context.Items.Update(item);
     }
+
+    public async Task Delete(int Id)
+    {
+        var item = await _context.Items.FindAsync(Id);
+
+        if (item is not null)
+            _context.Items.Remove(item);
+    }
 }

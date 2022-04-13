@@ -3,57 +3,58 @@ using GroceriesApi.Models;
 using GroceriesApi.Repositories;
 using GroceriesApi.Repositories.Context;
 
-namespace GroceriesApi.Controllers;
+namespace GroceriesApi.Controllers{
 
-[ApiController]
-[Route("v1/[controller]")]
-public class GroceriesController : ControllerBase
-{
-    private readonly IGroceriesRepository _repository;
-
-    private readonly DatabaseContext _context;
-
-    public GroceriesController(DatabaseContext context, IGroceriesRepository repository)
+    [ApiController]
+    [Route("v1/[controller]")]
+    public class GroceriesController : ControllerBase
     {
-        _context = context;
-        _repository = repository;
-    }
+        private readonly IGroceriesRepository _repository;
 
-    [HttpGet]
-    public async Task<IActionResult> Get()
-    {
-        var items = await _repository.GetItemsAsync();
+        private readonly DatabaseContext _context;
 
-        return new OkObjectResult(items);
-    }
+        public GroceriesController(DatabaseContext context, IGroceriesRepository repository)
+        {
+            _context = context;
+            _repository = repository;
+        }
 
-    [HttpPut]
-    public async Task<IActionResult> Put(Item item)
-    {
-        _repository.UpdateItem(item);
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var items = await _repository.GetItemsAsync();
 
-        await _context.SaveChangesAsync();
+            return new OkObjectResult(items);
+        }
 
-        return new OkResult();
-    }
+        [HttpPut]
+        public async Task<IActionResult> Put(Item item)
+        {
+            _repository.UpdateItem(item);
 
-    [HttpPost]
-    public async Task<IActionResult> Post(Item item)
-    {
-        _repository.AddItem(item);
+            await _context.SaveChangesAsync();
 
-        await _context.SaveChangesAsync();
+            return new OkResult();
+        }
 
-        return new OkResult();
-    }
+        [HttpPost]
+        public async Task<IActionResult> Post(Item item)
+        {
+            _repository.AddItem(item);
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(int Id)
-    {
-        await _repository.Delete(Id);
+            await _context.SaveChangesAsync();
 
-        await _context.SaveChangesAsync();
+            return new OkResult();
+        }
 
-        return new OkResult();
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int Id)
+        {
+            await _repository.Delete(Id);
+
+            await _context.SaveChangesAsync();
+
+            return new OkResult();
+        }
     }
 }

@@ -1,39 +1,38 @@
 using GroceriesApi.Models;
-using GroceriesApi.Repositories.Context;
-using Microsoft.EntityFrameworkCore;
 
-namespace GroceriesApi.Repositories;
-
-public class GroceriesRepository : IGroceriesRepository
+namespace GroceriesApi.Repositories
 {
-
-    private readonly DatabaseContext _context;
-
-    public GroceriesRepository(DatabaseContext context)
+    public class GroceriesRepository : IGroceriesRepository
     {
-        _context = context;
-    }
 
-    public async Task<IEnumerable<Item>> GetItemsAsync()
-    {
-        return await _context.Items.ToListAsync();
-    }
+        private static readonly Store _context = new Store();
 
-    public void AddItem(Item item)
-    {
-        _context.Items.Add(item);
-    }
+        private static int Identifier = 0;
 
-    public void UpdateItem(Item item)
-    {
-        _context.Items.Update(item);
-    }
+        public IEnumerable<Item> GetItemsAsync()
+        {
+            return _context.Items;
+        }
 
-    public async Task Delete(int Id)
-    {
-        var item = await _context.Items.FindAsync(Id);
+        public void AddItem(Item item)
+        {
+            item.Id = Identifier;
 
-        if (item is not null)
-            _context.Items.Remove(item);
+            Identifier = Identifier + 1;
+
+            _context.Items.Add(item);
+        }
+
+        public void UpdateItem(Item item)
+        {
+            _context.Items.RemoveAll(i => i.Id == item.Id);
+
+            _context.Items.Add(item);
+        }
+
+        public void Delete(int id)
+        {
+            _context.Items.RemoveAll(i => i.Id == id);
+        }
     }
 }

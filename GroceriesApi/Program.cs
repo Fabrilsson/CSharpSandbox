@@ -1,12 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using GroceriesApi.Repositories;
-using GroceriesApi.Repositories.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddDbContext<DatabaseContext>(opt => opt.UseInMemoryDatabase("test"));
 
 builder.Services.AddScoped<IGroceriesRepository, GroceriesRepository>();
 

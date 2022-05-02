@@ -1,14 +1,15 @@
 using GroceriesApi.Models;
 
-namespace GroceriesApi.Repositories;
-
-public interface IGroceriesRepository
+namespace GroceriesApi.Repositories
 {
-    IEnumerable<Item> GetItemsAsync();
+    public interface IGroceriesRepository
+    {
+        IEnumerable<Item> GetItemsAsync();
 
-    void AddItem(Item item);
+        void AddItem(Item item);
 
-    void UpdateItem(Item item);
+        void UpdateItem(Item item);
 
-    void Delete(int Id);
+        void Delete(int Id);
+    }
 }

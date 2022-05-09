@@ -6,7 +6,7 @@ namespace GroceriesApi.Repositories
     {
         private static readonly Store _context = new Store();
 
-        private static int Identifier = 0;
+        private static int _identifier = 0;
 
         public IEnumerable<Item> GetItemsAsync()
         {
@@ -15,9 +15,9 @@ namespace GroceriesApi.Repositories
 
         public void AddItem(Item item)
         {
-            item.Id = Identifier;
+            item.Id = _identifier;
 
-            Identifier = Identifier + 1;
+            _identifier = _identifier + 1;
 
             _context.Items.Add(item);
         }

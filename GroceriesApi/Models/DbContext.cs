@@ -1,10 +1,10 @@
 namespace GroceriesApi.Models
 {
-    public class Store
+    public class DbContext
     {
         public List<Item> Items { get; set; }
 
-        public Store()
+        public DbContext()
         {
             Items = new List<Item>();
         }

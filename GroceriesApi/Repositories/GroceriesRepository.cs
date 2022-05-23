@@ -8,6 +8,11 @@ namespace GroceriesApi.Repositories
 
         private static int _identifier = 0;
 
+        public GroceriesRepository()
+        {
+            
+        }
+
         public IEnumerable<Item> GetItemsAsync()
         {
             return _context.Items;

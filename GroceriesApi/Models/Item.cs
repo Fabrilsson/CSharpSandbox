@@ -17,12 +17,5 @@ namespace GroceriesApi.Models
         {
             
         }
-
-        public Item(string name, int quantity, decimal value)
-        {
-            Name = name;
-            Quantity = quantity;
-            Value = value;
-        }        
     }
 }
